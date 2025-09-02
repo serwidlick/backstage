@@ -1,5 +1,5 @@
 name: backstage
-description: "Live in-app logger for production. Hidden gesture + passcode, "
+description: "Live in-app logger for production. Hidden gesture + passcode"
 version: 0.0.1
 repository: https://github.com/serwidlick/backstage
 issue_tracker: https://github.com/serwidlick/backstage/issues
