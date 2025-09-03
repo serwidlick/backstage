@@ -8,6 +8,8 @@
 /// * [Backstage] - Main singleton class managing console state
 /// * [BackstageConfig] - Configuration options for initialization
 /// * Global error zone management for comprehensive error capture
+library;
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';

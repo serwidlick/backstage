@@ -3,6 +3,8 @@
 /// This file provides secure, platform-agnostic storage capabilities for
 /// persisting Backstage configuration data across application sessions.
 /// Currently handles the enabled/disabled state persistence.
+library;
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Handles persistent storage of Backstage configuration and state.

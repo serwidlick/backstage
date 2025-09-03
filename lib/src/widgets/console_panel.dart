@@ -10,6 +10,8 @@
 /// * Pause/resume functionality for detailed inspection
 /// * Clear log history action
 /// * Visual indicators for different log levels
+library;
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';

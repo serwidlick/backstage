@@ -8,6 +8,8 @@
 /// * [BackstageOverlay] - Main overlay wrapper for the entire application
 /// * [BackstageEntryGate] - Gesture detection widget for console activation
 /// * [_OverlayConsole] - Internal draggable console widget
+library;
+
 import 'package:flutter/material.dart';
 
 import 'backstage.dart';

@@ -9,6 +9,8 @@
 /// * [BackstageLog] - Individual log entry data structure  
 /// * [BackstageLevel] - Log severity levels
 /// * [BackstageTag] - Type alias for log categorization
+library;
+
 import 'dart:async';
 
 /// Type alias for log categorization tags.

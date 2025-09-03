@@ -9,6 +9,8 @@
 /// * [Capture.hookPrint] - Intercepts print() and debugPrint() output
 /// * [Capture.hookFlutterErrors] - Captures Flutter framework errors
 /// * Zone error capture (configured separately via BackstageConfig)
+library;
+
 import 'package:flutter/foundation.dart';
 
 import 'logger.dart';
