@@ -21,8 +21,3 @@ Perfect for QA, testers, and support engineers who need **context inside product
 - Works on mobile, desktop, and web
 
 ---
-
-## 🚀 Quick start
-
-```dart
-// Example setup code showing initialization and usage
