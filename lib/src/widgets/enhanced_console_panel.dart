@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../backstage.dart';
-import '../config/ui_config.dart';
 import '../services/enhanced_logger.dart';
 import '../services/export_service.dart';
 import '../services/network_service.dart';
@@ -229,7 +228,7 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant,
+        color: theme.colorScheme.surfaceContainerHighest,
         border: Border(
           bottom: BorderSide(
             color: theme.colorScheme.outline.withOpacity(0.2),
@@ -777,7 +776,7 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant,
+        color: theme.colorScheme.surfaceContainerHighest,
         border: Border(
           top: BorderSide(
             color: theme.colorScheme.outline.withOpacity(0.2),
@@ -899,8 +898,9 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
         if (!_isPaused) {
           setState(() {
             _performanceSnapshots.add(snapshot);
-            if (_performanceSnapshots.length > 200)
+            if (_performanceSnapshots.length > 200) {
               _performanceSnapshots.removeAt(0);
+            }
           });
         }
       }));
@@ -1103,7 +1103,7 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(

@@ -661,7 +661,7 @@ class EnhancedLogger extends BackstageLogger {
           'stackTrace': log.stackTrace?.toString(),
         }));
 
-    await file.writeAsString(jsonLines.join('\n') + '\n',
+    await file.writeAsString('${jsonLines.join('\n')}\n',
         mode: FileMode.append);
   }
 

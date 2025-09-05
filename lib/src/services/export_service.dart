@@ -257,7 +257,7 @@ class ExportService {
 
     return directory
         .listSync()
-        .where((entity) => entity is File)
+        .whereType<File>()
         .cast<File>()
         .toList();
   }
@@ -415,7 +415,7 @@ class ExportService {
       buffer.writeln('Backstage Debug Log Export');
       buffer.writeln('Generated: ${DateTime.now().toIso8601String()}');
       buffer.writeln('Total Entries: ${logs.length}');
-      buffer.writeln('${'=' * 50}');
+      buffer.writeln('=' * 50);
       buffer.writeln();
     }
 

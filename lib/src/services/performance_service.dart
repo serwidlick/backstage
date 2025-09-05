@@ -215,7 +215,7 @@ class PerformanceService {
   DateTime _lastFpsCalculation = DateTime.now();
 
   /// Current app lifecycle state.
-  AppLifecycleState _appLifecycleState = AppLifecycleState.resumed;
+  final AppLifecycleState _appLifecycleState = AppLifecycleState.resumed;
 
   /// Creates a new performance monitoring service.
   ///

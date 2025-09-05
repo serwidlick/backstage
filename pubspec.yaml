@@ -2,7 +2,7 @@ name: backstage
 description: "Live in-app logger for production. Hidden gesture + passcode"
 version: 0.0.3
 repository: https://github.com/serwidlick/backstage
-issue_tracker: https://github.com/serwidlick/backstage/issues
+issue_tracker: https://github.com/serwidlick/backstage/issues/
 homepage: https://github.com/serwidlick/backstage
 
 environment:

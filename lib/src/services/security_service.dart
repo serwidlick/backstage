@@ -308,7 +308,7 @@ class SecurityService {
         success: true,
         data: {
           'method': result.authenticationType,
-          'sessionToken': result.sessionToken!.substring(0, 8) + '...',
+          'sessionToken': '${result.sessionToken!.substring(0, 8)}...',
         },
       ));
     } else {
@@ -405,7 +405,7 @@ class SecurityService {
     // Apply length limit
     if (sanitized.length > config.maxLogEntrySize) {
       sanitized =
-          sanitized.substring(0, config.maxLogEntrySize) + '... [TRUNCATED]';
+          '${sanitized.substring(0, config.maxLogEntrySize)}... [TRUNCATED]';
     }
 
     return sanitized;
