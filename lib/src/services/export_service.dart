@@ -197,6 +197,7 @@ class ExportService {
       throw FileSystemException('Export file does not exist', file.path);
     }
 
+    // Use the Share class for compatibility with the updated API
     await Share.shareXFiles(
       [XFile(file.path)],
       subject: subject ?? 'Backstage Debug Export',
@@ -529,7 +530,7 @@ class ExportService {
   Uint8List _compressContent(String content, ExportFormat format) {
     final bytes = _contentToBytes(content, format);
     final compressed = GZipEncoder().encode(bytes);
-    return Uint8List.fromList(compressed!);
+    return Uint8List.fromList(compressed);
   }
 
   /// Converts content string to bytes for the specified format.

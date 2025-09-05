@@ -97,17 +97,6 @@ class PerformanceConfig {
   /// **Platforms**: Available on all platforms
   final bool trackConnectivity;
 
-  /// Whether to track device orientation and screen metrics.
-  ///
-  /// When enabled, screen dimensions, pixel density, orientation
-  /// changes, and display metrics will be tracked to identify
-  /// layout and rendering issues.
-  ///
-  /// **Default**: `false`
-  /// **Performance**: Low overhead, useful for responsive design debugging
-  /// **Platforms**: Available on mobile and desktop platforms
-  final bool trackDeviceInfo;
-
   /// Whether to track application startup performance.
   ///
   /// When enabled, detailed startup timing including initialization
@@ -170,27 +159,6 @@ class PerformanceConfig {
   /// **Range**: 0.0-100.0
   final double cpuWarningThresholdPercent;
 
-  /// Whether to capture detailed garbage collection events.
-  ///
-  /// When enabled, garbage collection timing and memory reclamation
-  /// events will be captured to help identify memory allocation
-  /// patterns and GC pressure.
-  ///
-  /// **Default**: `false`
-  /// **Performance**: Low overhead, useful for memory optimization
-  /// **Platforms**: Dart VM platforms only
-  final bool captureGCEvents;
-
-  /// Whether to track widget rebuild statistics.
-  ///
-  /// When enabled, widget rebuild counts and timing will be tracked
-  /// to identify inefficient widget trees and unnecessary rebuilds
-  /// that impact UI performance.
-  ///
-  /// **Default**: `false`
-  /// **Performance**: Moderate overhead, very useful for Flutter optimization
-  /// **Platforms**: Flutter applications only
-  final bool trackWidgetRebuilds;
 
   /// Maximum number of performance data points to retain in memory.
   ///
@@ -235,15 +203,12 @@ class PerformanceConfig {
     this.trackFPS = true,
     this.trackBatteryStatus = false,
     this.trackConnectivity = true,
-    this.trackDeviceInfo = false,
     this.trackStartupPerformance = true,
     this.collectionIntervalMs = 2000,
     this.memoryWarningThresholdMB,
     this.memoryCriticalThresholdMB,
     this.frameTimeWarningThresholdMs = 16.67, // 60 FPS
     this.cpuWarningThresholdPercent = 80.0,
-    this.captureGCEvents = false,
-    this.trackWidgetRebuilds = false,
     this.maxDataPoints = 1000,
     this.autoExportOnCritical = false,
   });

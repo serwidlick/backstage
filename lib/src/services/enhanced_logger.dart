@@ -543,7 +543,17 @@ class EnhancedLogger extends BackstageLogger {
       onCreate: _createDatabaseSchema,
       onOpen: (db) async {
         if (config.enableWALMode) {
-          await db.execute('PRAGMA journal_mode=WAL');
+          try {
+            // Use rawQuery instead of execute for PRAGMA commands
+            // Some SQLite implementations require rawQuery for PRAGMA statements
+            await db.rawQuery('PRAGMA journal_mode=WAL');
+          } catch (e) {
+            // WAL mode may not be supported on all platforms, continue without it
+            // This is not critical for functionality, just an optimization
+            if (kDebugMode) {
+              debugPrint('Backstage: Could not enable WAL mode: $e');
+            }
+          }
         }
       },
     );

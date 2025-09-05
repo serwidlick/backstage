@@ -213,6 +213,12 @@ class PerformanceService {
   /// Current app lifecycle state.
   final AppLifecycleState _appLifecycleState = AppLifecycleState.resumed;
 
+  /// Last time a janky frame warning was logged (for throttling).
+  DateTime? _lastJankyFrameWarning;
+
+  /// Minimum interval between janky frame warnings (to reduce noise).
+  static const Duration _jankyFrameWarningInterval = Duration(seconds: 5);
+
   /// Creates a new performance monitoring service.
   ///
   /// The [config] parameter defines what performance metrics should be
@@ -581,12 +587,18 @@ class PerformanceService {
 
     _frameController.add(frameInfo);
 
-    // Log janky frames
-    if (isJanky) {
+    // Log janky frames (with throttling to reduce noise)
+    if (isJanky && _shouldLogJankyFrame()) {
+      final totalJankyCount = _frames.where((f) => f.isJanky).length;
+      final recentJankyCount = _frames
+          .where((f) => f.isJanky && f.timestamp.isAfter(DateTime.now().subtract(const Duration(seconds: 10))))
+          .length;
+      
       logger.w(
-        'Janky frame detected: ${frameDurationMs.toStringAsFixed(1)}ms (target: ${config.frameTimeWarningThresholdMs}ms)',
+        'Janky frames detected: ${frameDurationMs.toStringAsFixed(1)}ms (target: ${config.frameTimeWarningThresholdMs}ms) - $recentJankyCount janky in last 10s, $totalJankyCount total',
         tag: 'performance',
       );
+      _lastJankyFrameWarning = DateTime.now();
     }
 
     // Schedule next frame callback
@@ -676,8 +688,9 @@ class PerformanceService {
   /// Gets current connectivity type.
   Future<String?> _getConnectivityType() async {
     try {
-      final result = await _connectivity.checkConnectivity();
-      return result.name;
+      final results = await _connectivity.checkConnectivity();
+      if (results.isEmpty) return null;
+      return results.first.name;
     } catch (e) {
       if (kDebugMode) {
         debugPrint('Failed to get connectivity: $e');
@@ -738,6 +751,12 @@ class PerformanceService {
     }
 
     return changes;
+  }
+
+  /// Checks if we should log a janky frame warning (for throttling).
+  bool _shouldLogJankyFrame() {
+    if (_lastJankyFrameWarning == null) return true;
+    return DateTime.now().difference(_lastJankyFrameWarning!) > _jankyFrameWarningInterval;
   }
 
   /// Disposes of resources and stops monitoring.

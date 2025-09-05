@@ -7,7 +7,16 @@
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
       "Bash(flutter analyze:*)",
-      "Bash(dart analyze:*)"
+      "Bash(dart analyze:*)",
+      "Bash(dart format:*)",
+      "Bash(flutter build:*)",
+      "Bash(flutter test:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(dart pub deps:*)",
+      "Bash(dart pub:*)",
+      "Bash(flutter clean:*)",
+      "Bash(flutter pub:*)"
     ],
     "deny": [],
     "ask": []

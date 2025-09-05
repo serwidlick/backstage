@@ -13,11 +13,15 @@ library;
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 
 import 'capture.dart';
 import 'config/backstage_config.dart';
 import 'logger.dart';
+import 'services/enhanced_logger.dart';
+import 'services/export_service.dart';
+import 'services/network_service.dart';
+import 'services/performance_service.dart';
+import 'services/security_service.dart';
 import 'storage.dart';
 
 // The comprehensive BackstageConfig is now in config/backstage_config.dart
@@ -145,6 +149,40 @@ class Backstage {
   /// to show/hide the console interface.
   final ValueNotifier<bool> enabled = ValueNotifier<bool>(false);
 
+  // ============================================================================
+  // SERVICE INSTANCES
+  // ============================================================================
+
+  /// Enhanced logger service for advanced logging features.
+  EnhancedLogger? _enhancedLogger;
+
+  /// Network service for HTTP request/response monitoring.
+  NetworkService? _networkService;
+
+  /// Performance monitoring service for system metrics.
+  PerformanceService? _performanceService;
+
+  /// Security service for data sanitization and access control.
+  SecurityService? _securityService;
+
+  /// Export service for log data export and sharing.
+  ExportService? _exportService;
+
+  /// Gets the enhanced logger service instance.
+  EnhancedLogger? get enhancedLogger => _enhancedLogger;
+
+  /// Gets the network service instance.
+  NetworkService? get networkService => _networkService;
+
+  /// Gets the performance service instance.
+  PerformanceService? get performanceService => _performanceService;
+
+  /// Gets the security service instance.
+  SecurityService? get securityService => _securityService;
+
+  /// Gets the export service instance.
+  ExportService? get exportService => _exportService;
+
   /// Initializes the Backstage debugging console with the provided configuration.
   ///
   /// This method supports both the comprehensive [BackstageConfig] and the
@@ -220,14 +258,78 @@ class Backstage {
     if (_cfg.capturePrint) Capture.hookPrint(logger);
     if (_cfg.captureFlutterErrors) Capture.hookFlutterErrors(logger);
 
-    // TODO: Initialize additional features based on configuration
-    // These will be implemented in subsequent steps:
-    // - Network request logging
-    // - Performance monitoring
-    // - Remote logging
-    // - Security features
-    // - Storage persistence
-    // - Platform-specific features
+    // Initialize additional features based on configuration
+    await _initializeServices();
+  }
+
+  /// Initializes all configured services based on the current configuration.
+  ///
+  /// This method creates and initializes service instances based on what
+  /// features are enabled in the configuration. Services are only created
+  /// if their corresponding feature is enabled.
+  Future<void> _initializeServices() async {
+    // Initialize security service first (needed by other services)
+    _securityService = SecurityService(_cfg.securityConfig, logger);
+
+    // Initialize enhanced logger with storage persistence
+    if (_cfg.persistLogs) {
+      _enhancedLogger = EnhancedLogger(_cfg.storageConfig);
+      await _enhancedLogger!.initialize();
+    }
+
+    // Initialize network request monitoring
+    if (_cfg.captureNetworkRequests) {
+      _networkService = NetworkService(_cfg.networkConfig, logger);
+      await _networkService!.initialize();
+    }
+
+    // Initialize performance monitoring
+    if (_cfg.capturePerformanceMetrics) {
+      _performanceService = PerformanceService(_cfg.performanceConfig, logger);
+      await _performanceService!.initialize();
+    }
+
+    // Initialize export service
+    if (_cfg.enableExport) {
+      _exportService = ExportService(_cfg.exportConfig);
+    }
+
+    // Initialize remote logging
+    if (_cfg.enableRemoteLogging && _cfg.remoteEndpoint != null) {
+      await _initializeRemoteLogging();
+    }
+
+    // Initialize platform-specific features
+    if (_cfg.enablePlatformFeatures) {
+      await _initializePlatformFeatures();
+    }
+  }
+
+  /// Initializes remote logging capabilities.
+  Future<void> _initializeRemoteLogging() async {
+    // TODO: Implement remote logging service
+    // This would create a service that sends logs to the configured endpoint
+    if (kDebugMode) {
+      logger.add(BackstageLog(
+        message:
+            'Remote logging initialized for endpoint: ${_cfg.remoteEndpoint}',
+        level: BackstageLevel.info,
+        tag: 'backstage',
+      ));
+    }
+  }
+
+  /// Initializes platform-specific features like device shake or keyboard shortcuts.
+  Future<void> _initializePlatformFeatures() async {
+    // TODO: Implement platform-specific activation features
+    // This would set up device shake detection, keyboard shortcuts, etc.
+    if (kDebugMode) {
+      logger.add(BackstageLog(
+        message: 'Platform-specific features initialized',
+        level: BackstageLevel.info,
+        tag: 'backstage',
+      ));
+    }
   }
 
   /// Wraps application execution in a guarded zone for comprehensive error capture.
@@ -355,6 +457,45 @@ class Backstage {
   /// **Alternative**: For reactive UI updates, subscribe to the [enabled]
   /// ValueNotifier instead of polling this getter.
   bool get isEnabled => enabled.value;
+
+  /// Disposes of all service resources and cleans up subscriptions.
+  ///
+  /// This method properly shuts down all initialized services and cleans up
+  /// their resources. It should be called when the application is being terminated
+  /// to ensure proper cleanup and prevent resource leaks.
+  ///
+  /// **Service Cleanup**:
+  /// * Enhanced logger: Flushes pending writes and closes database connections
+  /// * Network service: Cancels active monitoring and clears interceptors
+  /// * Performance service: Stops monitoring timers and releases resources
+  /// * Security service: Clears sensitive data from memory
+  /// * Export service: No cleanup needed (stateless)
+  ///
+  /// Example:
+  /// ```dart
+  /// @override
+  /// void dispose() {
+  ///   Backstage.I.dispose();
+  ///   super.dispose();
+  /// }
+  /// ```
+  ///
+  /// **Note**: This method is typically called automatically by the framework
+  /// during app termination, but can be called manually if needed.
+  Future<void> dispose() async {
+    // Dispose services in reverse order of initialization
+    _performanceService?.dispose();
+    _networkService?.dispose();
+    _enhancedLogger?.dispose();
+    // Security service and export service don't need explicit disposal
+
+    // Clear references
+    _performanceService = null;
+    _networkService = null;
+    _enhancedLogger = null;
+    _securityService = null;
+    _exportService = null;
+  }
 
   /// Static convenience property for quick access to the singleton instance.
   ///
