@@ -1,6 +1,6 @@
 name: backstage
 description: "Complete in-app debugging console with advanced logging, network monitoring, performance metrics, and export capabilities. Production-ready with security features."
-version: 0.0.5
+version: 0.0.6
 repository: https://github.com/serwidlick/backstage
 issue_tracker: https://github.com/serwidlick/backstage/issues/
 homepage: https://github.com/serwidlick/backstage

@@ -1,3 +1,16 @@
+## 0.0.6
+
+### 🚀 Pub.dev Package Score Improvements
+* **Full platform support declarations** - Added support for all 6 platforms (Android, iOS, macOS, Windows, Linux, Web)
+* **Improved static analysis handling** - Documented SharePlus API deprecation with proper ignore comments
+* **Enhanced pub.dev compatibility** - Better scoring for platform support and code quality metrics
+* **API future-proofing** - Prepared for SharePlus API migration while maintaining current functionality
+
+### 🔧 Technical Improvements
+* **Platform compatibility** - Comprehensive platform declarations in pubspec.yaml
+* **Code documentation** - Better deprecation warning handling and documentation
+* **Maintained functionality** - All file sharing features remain fully functional
+
 ## 0.0.5
 
 ### 🚀 Major Features & Services
