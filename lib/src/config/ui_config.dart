@@ -337,6 +337,30 @@ class UIConfig {
   /// **Advanced**: Additional features for experienced users
   final bool enableDeveloperMode;
 
+  /// Elevation for the console panel.
+  ///
+  /// The Material Design elevation value for the console panel.
+  /// Higher values create more prominent shadows.
+  ///
+  /// **Default**: `8.0`
+  final double? panelElevation;
+
+  /// Border radius for the console panel.
+  ///
+  /// Corner radius in logical pixels for the console panel.
+  /// Set to 0 for sharp corners or higher values for rounded corners.
+  ///
+  /// **Default**: `12.0`
+  final double? borderRadius;
+
+  /// Opacity for the console panel background.
+  ///
+  /// Controls the transparency of the console panel background.
+  /// Range from 0.0 (fully transparent) to 1.0 (fully opaque).
+  ///
+  /// **Default**: `0.95`
+  final double? panelOpacity;
+
   /// Creates a new UI configuration with the specified options.
   ///
   /// All parameters are optional and have balanced defaults that provide
@@ -381,5 +405,8 @@ class UIConfig {
     this.customToolbarActions = const [],
     this.showPerformanceOverlay = false,
     this.enableDeveloperMode = false,
+    this.panelElevation = 8.0,
+    this.borderRadius = 12.0,
+    this.panelOpacity = 0.95,
   });
 }

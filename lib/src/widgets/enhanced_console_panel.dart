@@ -11,7 +11,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../backstage.dart';
+import '../../backstage.dart' hide ExportFormat;
+import '../config/export_config.dart';
 import '../services/enhanced_logger.dart';
 import '../services/export_service.dart';
 import '../services/network_service.dart';
@@ -206,8 +207,8 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
         width: _calculatePanelWidth(),
         height: _calculatePanelHeight(),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surface.withOpacity(
-            widget.uiConfig.panelOpacity ?? 0.95,
+          color: theme.colorScheme.surface.withValues(
+            alpha: widget.uiConfig.panelOpacity ?? 0.95,
           ),
         ),
         child: Column(
@@ -231,7 +232,7 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
         color: theme.colorScheme.surfaceContainerHighest,
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -327,7 +328,7 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -548,7 +549,7 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
     switch (log.level) {
       case BackstageLevel.debug:
         icon = Icons.bug_report_outlined;
-        color = theme.colorScheme.onSurface.withOpacity(0.6);
+        color = theme.colorScheme.onSurface.withValues(alpha: 0.6);
         break;
       case BackstageLevel.info:
         icon = Icons.info_outlined;
@@ -601,7 +602,8 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
                         _formatTime(log.time),
                         style: TextStyle(
                           fontSize: 10,
-                          color: theme.colorScheme.onSurface.withOpacity(0.6),
+                          color: theme.colorScheme.onSurface
+                              .withValues(alpha: 0.6),
                         ),
                       ),
                     ],
@@ -676,7 +678,8 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
                           '${request.duration!.inMilliseconds}ms',
                           style: TextStyle(
                             fontSize: 10,
-                            color: theme.colorScheme.onSurface.withOpacity(0.6),
+                            color: theme.colorScheme.onSurface
+                                .withValues(alpha: 0.6),
                           ),
                         ),
                     ],
@@ -754,7 +757,7 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
-        color: Colors.blue.withOpacity(0.1),
+        color: Colors.blue.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
@@ -779,7 +782,7 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
         color: theme.colorScheme.surfaceContainerHighest,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -856,7 +859,7 @@ class _EnhancedConsolePanelState extends State<EnhancedConsolePanel>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
-        color: (color ?? Colors.blue).withOpacity(0.1),
+        color: (color ?? Colors.blue).withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(

@@ -269,6 +269,20 @@ class EnhancedLogger extends BackstageLogger {
         tag: 'logger');
   }
 
+  /// Disposes of resources and stops background processing.
+  void dispose() {
+    _processingActive = false;
+    _flushTimer?.cancel();
+    _cleanupTimer?.cancel();
+
+    // Final flush
+    if (_writeBuffer.isNotEmpty) {
+      _flushToStorage();
+    }
+
+    _database?.close();
+  }
+
   /// Adds a log entry with enhanced processing and storage.
   ///
   /// Extends the base logger's add method with additional features including
@@ -952,21 +966,5 @@ class EnhancedLogger extends BackstageLogger {
     }
 
     return deletedCount;
-  }
-
-  /// Disposes of resources and stops background processing.
-  @override
-  void dispose() {
-    _processingActive = false;
-    _flushTimer?.cancel();
-    _cleanupTimer?.cancel();
-
-    // Final flush
-    if (_writeBuffer.isNotEmpty) {
-      _flushToStorage();
-    }
-
-    _database?.close();
-    super.dispose();
   }
 }

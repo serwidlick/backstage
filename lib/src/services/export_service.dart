@@ -255,11 +255,7 @@ class ExportService {
       return [];
     }
 
-    return directory
-        .listSync()
-        .whereType<File>()
-        .cast<File>()
-        .toList();
+    return directory.listSync().whereType<File>().cast<File>().toList();
   }
 
   /// Deletes old export files based on retention policy.
