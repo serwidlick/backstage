@@ -25,7 +25,7 @@ import 'logger.dart';
 /// **Important Notes**:
 /// * All capture methods modify global Flutter/Dart behavior
 /// * Original functionality is preserved (output still goes to system console)
-/// * Captures should be set up early in app initialization  
+/// * Captures should be set up early in app initialization
 /// * Thread-safe and can be called from any isolate
 ///
 /// **Security Consideration**: Be mindful that captured output may contain
@@ -35,11 +35,11 @@ import 'logger.dart';
 /// Example initialization:
 /// ```dart
 /// final logger = BackstageLogger();
-/// 
+///
 /// // Set up all capture mechanisms
 /// Capture.hookPrint(logger);
 /// Capture.hookFlutterErrors(logger);
-/// 
+///
 /// // Now all print() and framework errors will appear in Backstage
 /// print('This will appear in both console and Backstage');
 /// ```
@@ -70,7 +70,7 @@ class Capture {
   /// ```dart
   /// final logger = BackstageLogger();
   /// Capture.hookPrint(logger);
-  /// 
+  ///
   /// // These will now appear in both system console and Backstage
   /// print('Application starting');
   /// debugPrint('Debug information', wrapWidth: 80);
@@ -122,7 +122,7 @@ class Capture {
   /// ```dart
   /// final logger = BackstageLogger();
   /// Capture.hookFlutterErrors(logger);
-  /// 
+  ///
   /// // Framework errors will now appear in Backstage console
   /// // For example, widget build errors, overflow errors, etc.
   /// ```

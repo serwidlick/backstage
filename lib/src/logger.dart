@@ -6,7 +6,7 @@
 ///
 /// The main components are:
 /// * [BackstageLogger] - The primary logging interface
-/// * [BackstageLog] - Individual log entry data structure  
+/// * [BackstageLog] - Individual log entry data structure
 /// * [BackstageLevel] - Log severity levels
 /// * [BackstageTag] - Type alias for log categorization
 library;
@@ -37,18 +37,18 @@ typedef BackstageTag = String;
 /// * [info] - General informational messages about application flow
 /// * [warn] - Warning messages for potentially harmful situations
 /// * [error] - Error events that might still allow application to continue
-enum BackstageLevel { 
+enum BackstageLevel {
   /// Detailed diagnostic information, typically only of interest when diagnosing problems.
-  debug, 
-  
+  debug,
+
   /// Informational messages that highlight application progress at a coarse-grained level.
-  info, 
-  
+  info,
+
   /// Potentially harmful situations that deserve attention but don't prevent continued execution.
-  warn, 
-  
+  warn,
+
   /// Error events that might still allow the application to continue running.
-  error 
+  error
 }
 
 /// Immutable data structure representing a single log entry.
@@ -85,32 +85,32 @@ class BackstageLog {
   /// explicitly provided. Used for chronological ordering and display
   /// in the debugging console.
   final DateTime time;
-  
+
   /// The primary log message content.
   ///
   /// Should be a clear, concise description of the logged event.
   /// Avoid including sensitive information like passwords or tokens.
   final String message;
-  
+
   /// The severity level of this log entry.
   ///
   /// Determines how this log is categorized and whether it appears
   /// when filtering by minimum log level in the debugging console.
   final BackstageLevel level;
-  
+
   /// The categorization tag for this log entry.
   ///
   /// Used to group related log entries and enable filtering by
   /// functional area. Defaults to 'app' if not specified.
   final BackstageTag tag;
-  
+
   /// Optional stack trace providing debugging context.
   ///
   /// Typically included with error and warning logs to help
   /// identify the source location and call path that led to
   /// the logged event. Can be null for informational logs.
   final StackTrace? stackTrace;
-  
+
   /// Creates a new log entry with the specified parameters.
   ///
   /// The [message] and [level] are required. The [tag] defaults to 'app'
@@ -150,12 +150,12 @@ class BackstageLog {
 /// Basic usage example:
 /// ```dart
 /// final logger = BackstageLogger();
-/// 
+///
 /// // Subscribe to log events
 /// logger.stream.listen((log) {
 ///   print('${log.level.name}: ${log.message}');
 /// });
-/// 
+///
 /// // Log messages at different levels
 /// logger.i('Application started successfully');
 /// logger.w('Low memory warning', tag: 'system');
@@ -164,7 +164,7 @@ class BackstageLog {
 ///
 /// The logger provides convenience methods for each log level:
 /// * [d] for debug messages
-/// * [i] for informational messages  
+/// * [i] for informational messages
 /// * [w] for warnings
 /// * [e] for errors (with optional stack trace)
 ///
@@ -179,7 +179,7 @@ class BackstageLogger {
   /// The controller is never closed during the logger's lifetime to
   /// ensure continuous availability for log consumption.
   final _controller = StreamController<BackstageLog>.broadcast();
-  
+
   /// A broadcast stream that emits all log entries added to this logger.
   ///
   /// Multiple listeners can subscribe to this stream simultaneously. Each
@@ -192,21 +192,21 @@ class BackstageLogger {
   /// Example usage:
   /// ```dart
   /// final logger = BackstageLogger();
-  /// 
+  ///
   /// // Listen for all log entries
   /// logger.stream.listen((log) {
   ///   if (log.level == BackstageLevel.error) {
   ///     sendErrorToMonitoring(log);
   ///   }
   /// });
-  /// 
+  ///
   /// // Listen for specific tags only
   /// logger.stream
   ///   .where((log) => log.tag == 'network')
   ///   .listen(handleNetworkLogs);
   /// ```
   Stream<BackstageLog> get stream => _controller.stream;
-  
+
   /// Adds a new log entry to the stream and notifies all listeners.
   ///
   /// The [log] parameter contains the complete log information including
@@ -242,7 +242,7 @@ class BackstageLogger {
   /// ```
   void d(String msg, {BackstageTag tag = 'app'}) =>
       add(BackstageLog(message: msg, level: BackstageLevel.debug, tag: tag));
-      
+
   /// Logs an informational message with optional categorization tag.
   ///
   /// Info messages highlight application progress at a coarse-grained level.
@@ -260,7 +260,7 @@ class BackstageLogger {
   /// ```
   void i(String msg, {BackstageTag tag = 'app'}) =>
       add(BackstageLog(message: msg, level: BackstageLevel.info, tag: tag));
-      
+
   /// Logs a warning message with optional categorization tag.
   ///
   /// Warning messages indicate potentially harmful situations that deserve
@@ -268,7 +268,7 @@ class BackstageLogger {
   /// configuration issues, deprecated API usage, or recoverable errors.
   ///
   /// Parameters:
-  /// * [msg] - The warning message content  
+  /// * [msg] - The warning message content
   /// * [tag] - Optional categorization tag (defaults to 'app')
   ///
   /// Example:
@@ -278,7 +278,7 @@ class BackstageLogger {
   /// ```
   void w(String msg, {BackstageTag tag = 'app'}) =>
       add(BackstageLog(message: msg, level: BackstageLevel.warn, tag: tag));
-      
+
   /// Logs an error message with optional categorization tag and stack trace.
   ///
   /// Error messages indicate problems that might still allow the application

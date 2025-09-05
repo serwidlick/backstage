@@ -46,13 +46,13 @@ class ConsolePanel extends StatefulWidget {
   /// log entries that are emitted. Typically this is the global
   /// Backstage logger instance.
   final BackstageLogger logger;
-  
+
   /// Creates a new console panel for the specified logger.
   ///
   /// The [logger] parameter is required and determines which log stream
   /// will be displayed in this console instance.
   const ConsolePanel({super.key, required this.logger});
-  
+
   @override
   State<ConsolePanel> createState() => _ConsolePanelState();
 }
@@ -69,32 +69,32 @@ class _ConsolePanelState extends State<ConsolePanel> {
   /// the user explicitly clears the console. Filtered views are
   /// derived from this master list.
   final _logs = <BackstageLog>[];
-  
+
   /// Subscription to the logger's stream for receiving new log entries.
   ///
   /// Automatically receives and processes new log entries from the
   /// logger. Cancelled when the console is disposed.
   late StreamSubscription _sub;
-  
+
   /// Minimum log level filter for display.
   ///
   /// When set, only log entries at or above this level are shown.
   /// When null, all log levels are displayed.
   BackstageLevel? _minLevel;
-  
+
   /// Text filter for log tags.
   ///
   /// When non-empty, only log entries whose tags contain this
   /// substring are displayed. Case-sensitive matching.
   String _tagFilter = '';
-  
+
   /// Whether new log entry processing is paused.
   ///
   /// When true, new log entries from the stream are ignored,
   /// allowing users to examine existing entries without
   /// constant updates disrupting their inspection.
   bool _paused = false;
-  
+
   /// Scroll controller for the log entry list.
   ///
   /// Used to automatically scroll to the bottom when new entries

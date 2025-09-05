@@ -12,13 +12,55 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  # Core functionality
   shared_preferences: ^2.2.3
   collection: ^1.18.0
+  
+  # Network logging and HTTP interception
+  dio: ^5.4.0
+  http: ^1.2.0
+  
+  # File operations and export
+  path_provider: ^2.1.2
+  csv: ^6.0.0
+  archive: ^3.4.10
+  
+  # Platform sharing
+  share_plus: ^7.2.2
+  
+  # Screenshots and image capture
+  screenshot: ^2.3.0
+  
+  # Performance monitoring
+  device_info_plus: ^10.1.0
+  battery_plus: ^6.0.1
+  
+  # Platform-specific features
+  sensors_plus: ^4.0.2
+  local_auth: ^2.1.8
+  
+  # Charts and visualization
+  fl_chart: ^0.66.2
+  
+  # Advanced data structures
+  sqflite: ^2.3.2
+  
+  # Network and remote logging
+  connectivity_plus: ^5.0.2
+  crypto: ^3.0.3
+  
+  # JSON serialization
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  
+  # Code generation
+  build_runner: ^2.4.7
+  json_serializable: ^6.7.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

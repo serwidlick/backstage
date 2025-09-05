@@ -21,10 +21,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Example usage:
 /// ```dart
 /// final store = BackstageStore();
-/// 
+///
 /// // Save the current enabled state
 /// await store.writeEnabled(true);
-/// 
+///
 /// // Retrieve the enabled state on app restart
 /// final isEnabled = await store.readEnabled() ?? false;
 /// ```
@@ -42,7 +42,7 @@ class BackstageStore {
   /// to ensure data integrity and avoid conflicts with other
   /// SharedPreferences usage in the host application.
   static const _key = 'backstage.enabled';
-  
+
   /// Retrieves the persisted enabled state from platform storage.
   ///
   /// Returns `true` if the console was previously enabled, `false` if it was
@@ -53,14 +53,14 @@ class BackstageStore {
   ///
   /// Returns:
   /// * `true` - Console was previously enabled
-  /// * `false` - Console was previously disabled  
+  /// * `false` - Console was previously disabled
   /// * `null` - No preference stored (first run or cleared data)
   ///
   /// Example:
   /// ```dart
   /// final store = BackstageStore();
   /// final enabled = await store.readEnabled();
-  /// 
+  ///
   /// if (enabled == null) {
   ///   // First run - use default configuration
   ///   print('First run detected, using defaults');
@@ -92,13 +92,13 @@ class BackstageStore {
   /// Example:
   /// ```dart
   /// final store = BackstageStore();
-  /// 
+  ///
   /// // Enable the console and persist the choice
   /// await store.writeEnabled(true);
   /// print('Console enabled and preference saved');
-  /// 
+  ///
   /// // Later disable and persist
-  /// await store.writeEnabled(false);  
+  /// await store.writeEnabled(false);
   /// print('Console disabled and preference saved');
   /// ```
   ///

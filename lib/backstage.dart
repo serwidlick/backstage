@@ -61,7 +61,17 @@
 // documentation and the project README.
 
 // Core system and configuration
-export 'src/backstage.dart' show Backstage, BackstageConfig;
+export 'src/backstage.dart' show Backstage, LegacyBackstageConfig;
+export 'src/config/backstage_config.dart'
+    show BackstageConfig, ExportFormat, CrashProvider, BackstageTheme;
+export 'src/config/network_config.dart' show NetworkConfig;
+export 'src/config/performance_config.dart' show PerformanceConfig;
+export 'src/config/security_config.dart' show SecurityConfig;
+export 'src/config/export_config.dart' show ExportConfig;
+export 'src/config/storage_config.dart' show StorageConfig, StorageBackend;
+export 'src/config/theme_config.dart' show ThemeConfig;
+export 'src/config/ui_config.dart'
+    show UIConfig, ConsoleLayout, DefaultPosition;
 // Logging system
 export 'src/logger.dart'
     show BackstageLog, BackstageLevel, BackstageTag, BackstageLogger;

@@ -55,7 +55,7 @@ class BackstageOverlay extends StatelessWidget {
   /// This is typically your MaterialApp, CupertinoApp, or main application
   /// widget. The console will render as a floating overlay above this content.
   final Widget child;
-  
+
   /// Creates a new Backstage overlay wrapper.
   ///
   /// The [child] parameter is required and should be your main application
@@ -97,7 +97,7 @@ class BackstageOverlay extends StatelessWidget {
 /// with the console's internal controls.
 class _OverlayConsole extends StatefulWidget {
   const _OverlayConsole();
-  
+
   @override
   State<_OverlayConsole> createState() => _OverlayConsoleState();
 }
@@ -214,7 +214,7 @@ class BackstageEntryGate extends StatefulWidget {
   /// interactions. The gesture detection is completely transparent and
   /// doesn't interfere with the child's normal behavior.
   final Widget child;
-  
+
   /// Optional passcode required after gesture activation.
   ///
   /// When provided, users must enter this exact passcode after performing
@@ -224,7 +224,7 @@ class BackstageEntryGate extends StatefulWidget {
   /// **Security**: Use a non-obvious passcode in production builds to
   /// prevent unauthorized access to potentially sensitive debug information.
   final String? passcode;
-  
+
   /// Creates a new gesture detection wrapper.
   ///
   /// The [child] parameter is required and will be wrapped with invisible
@@ -246,7 +246,7 @@ class _BackstageEntryGateState extends State<BackstageEntryGate> {
   /// Resets to 0 when the time window expires or when the activation
   /// sequence is completed. Must reach 5 for activation.
   int taps = 0;
-  
+
   /// Timestamp of the most recent tap.
   ///
   /// Used to determine if subsequent taps fall within the 2-second
