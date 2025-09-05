@@ -1,3 +1,9 @@
+## 0.0.4
+
+* Flutter analyze for static analysis compliance.
+* Dart format for static analysis compliance.
+* Added documentation comments for public APIs.
+
 ## 0.0.3
 
 * Minor updates to documentation for static analysis compliance.
