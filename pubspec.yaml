@@ -9,6 +9,15 @@ environment:
   sdk: ">=3.4.0 <4.0.0"
   flutter: ">=3.22.0"
 
+# Platform support
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:
+
 dependencies:
   flutter:
     sdk: flutter
@@ -50,6 +59,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+
 
   # To add assets to your package, add an assets section, like this:
   # assets:

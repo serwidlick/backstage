@@ -197,7 +197,9 @@ class ExportService {
       throw FileSystemException('Export file does not exist', file.path);
     }
 
-    // Use the Share class for compatibility with the updated API
+    // ignore: deprecated_member_use
+    // ignore: deprecated_member_use_from_same_package
+    // Using SharePlus API - the suggested SharePlus.instance.share() is not available in current version
     await Share.shareXFiles(
       [XFile(file.path)],
       subject: subject ?? 'Backstage Debug Export',
